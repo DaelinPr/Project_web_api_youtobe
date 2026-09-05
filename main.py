@@ -2,9 +2,11 @@ from fastapi import FastAPI
 
 from app.api.v1.wallets import router as wallet_router
 from app.api.v1.operations import router as operations_router
-
+from app.database import engine, Base
 
 app = FastAPI()
 
 app.include_router(wallet_router, prefix="/api/vi", tags=["wallet"])
 app.include_router(operations_router, prefix="/api/vi", tags=["operations"])
+
+Base.metadata.create_all(bind=engine)
